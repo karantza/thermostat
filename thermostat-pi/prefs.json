@@ -1,0 +1,6 @@
+{
+    "failsafeOverride": false, 
+    "setpointMax": 21, 
+    "setpointMin": 19, 
+    "units": "F"
+}
