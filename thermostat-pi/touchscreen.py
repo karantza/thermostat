@@ -429,9 +429,10 @@ def start(thermostat, latestWeather, prefs):
 		# any weather alerts? turn the backlight on every ~30 minutes for 5 minutes
 		if len(conditions.alerts()) > 0 and currentDatetime.minute % 30 < 5:
 			shouldBacklight = True
-			
-
-
+		
+		if cooldown > 0:
+			shouldBacklight = True
+		
 		backlightTarget = {True:100, False:0}[shouldBacklight];
 		if backlightTarget != backlight:
 			if backlightTarget > backlight:
@@ -564,6 +565,9 @@ def start(thermostat, latestWeather, prefs):
 						if currentAlert == len(conditions.alerts()):
 							state = 'normal'
 							stateTimeout = 0
+					elif state == 'forecast':
+						state = 'normal'
+						stateTimeout = 0
 
 
 		if pressed or animate > 0:
@@ -605,7 +609,6 @@ def start(thermostat, latestWeather, prefs):
 			drawAlerts(currentAlert, conditions)
 		elif state == 'forecast':
 			drawForecast(conditions)
-			#state = 'normal'
 
 
 		# draw tap circle
